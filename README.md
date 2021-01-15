@@ -15,7 +15,7 @@ Returns the time since the service booted up as text/plain
 Returns "pong" as text/plain
 
 - GET /simple/capital/{country}/
-Returns the respective country capital as application/json
+Returns the respective country capital as text/plain
 
 - GET /simple/capital/
-Returns the list of all available countries
+Returns the list of all available countries as application/json
