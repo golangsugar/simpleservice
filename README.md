@@ -1,7 +1,7 @@
 # Getting Started
-`docker run miguelpragier/simpleservice:latest -p 80:8080`
+`docker run miguelpragier/simpleservice:latest -p 3001:80`
 <br>
-`curl http://127.0.0.1:8080/simple/ping/`
+`curl http://127.0.0.1:3001/simple/ping/`
 
 # Simple Service
 Containerized service for learn and test docker basics
