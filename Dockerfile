@@ -4,16 +4,12 @@ FROM golang:1.15-alpine AS builder
 RUN apk --update-cache upgrade && apk add --no-cache git mercurial ca-certificates
 
 ENV APPNAME simpleservice
-ENV SRCPATH /src/${APPNAME}
-ENV BINPATH /${APPNAME}
 
-RUN mkdir -p --verbose ${SRCPATH} \
-    && mkdir -p --verbose ${BINPATH} \
-    && git clone --single-branch --branch master --depth 1 https://github.com/miguelpragier/${APPNAME}.git ${SRCPATH}
+RUN git clone --single-branch --branch master --depth 1 https://github.com/golangsugar/${APPNAME}.git
 
-WORKDIR ${SRCPATH}
+WORKDIR ${APPNAME}
 
-RUN go get -u && go mod tidy && CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags "-extldflags '-static'" -o ${BINPATH}/${APPNAME} .
+RUN go get -u && go mod tidy && CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags "-extldflags '-static'" -o /${APPNAME}/${APPNAME} .
 
 # ######################################################################################################################
 FROM scratch
@@ -25,6 +21,8 @@ COPY --from=builder /${APPNAME} /${APPNAME}/
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
 WORKDIR ${APPNAME}
+
+EXPOSE 80/tcp
 
 ENTRYPOINT ["./simpleservice"]
 

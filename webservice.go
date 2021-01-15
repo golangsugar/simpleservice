@@ -54,7 +54,7 @@ func webserviceStart() {
 		return c.String(http.StatusOK, "pong")
 	})
 
-	r.GET("/capital/{country}/", func(c echo.Context) error {
+	r.GET("/capital/:country/", func(c echo.Context) error {
 		return capitals.ByCountry(c)
 	})
 
