@@ -1,5 +1,5 @@
 # Getting Started
-`docker run miguelpragier/simpleservice:latest -p 3001:80`
+`docker run miguelpragier/simpleservice:latest -d -p 3001:80`
 <br>
 `curl http://127.0.0.1:3001/simple/ping/`
 
